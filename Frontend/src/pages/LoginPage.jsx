@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import assets from '../assets/assets'
+import { useContext } from 'react'
+import { AppContext } from '../../context/AppContext'
 
 function LoginPage() {
 
@@ -10,11 +12,15 @@ function LoginPage() {
     const [bio, setBio] = useState("")
     const [isDataSubmit, setIsDataSubmit] = useState(false)
 
+    const {login} = useContext(AppContext)
+
     const onSubmitHandler = (e) => {
         e.preventDefault();
         if(currentState === "Sign up" && !isDataSubmit){
             setIsDataSubmit(true)
+            return
         }
+        login(currentState === "Sign up" ? 'signup' : 'login', {fullName, email, password, bio})
     }
 
   return (
